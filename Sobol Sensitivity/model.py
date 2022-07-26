@@ -41,7 +41,7 @@ def eqs(X,t,f_orf,f_N,f_SP,n_NW,k_bind,d_VW,k_diss,k_fuse,k_uncoat,d_endosomeW,d
     V[7]=k_uncoat*X[6]-d_gRNAD*X[7]
     
         #NSP X[8]
-    V[8]=k_transl*f_orf*X[3]-d_NSP*X[8]-(k_transWT_neg*V[3]+k_transWT_pos*X[9]+k_transD_neg*X[7]+k_transD_pos*X[11])*X[8]
+    V[8]=k_transl*f_orf*X[3]-d_NSP*X[8]-(k_transWT_neg*X[3]+k_transWT_pos*X[9]+k_transD_neg*X[7]+k_transD_pos*X[11])*X[8]
     
         #WT gRNA(-) X[9]
     V[9]=(k_trWT_neg*X[3])*(X[8]/(X[8]+K_NSP))-d_gRNAWT_neg*X[9]
@@ -76,8 +76,8 @@ def eqs(X,t,f_orf,f_N,f_SP,n_NW,k_bind,d_VW,k_diss,k_fuse,k_uncoat,d_endosomeW,d
         #DIP assembly X[19]
     V[19]=k_assemblD*(X[14]/(X[14]+K_VD_rel*n_SPD))*X[18]-(k_releaseD+d_assembledD)*X[19]
         
-        #DIP released
-    V[20]=k_releaseD*X[19]-d_VW*X[20]
+        #DIP released X[20]
+    V[20]=k_releaseD*X[19]-d_VD*X[20]
         
     return V
     

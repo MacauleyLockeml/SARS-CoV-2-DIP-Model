@@ -40,7 +40,7 @@ S2=np.loadtxt("S2.txt")
 t = np.linspace(0,48,49)
 
 #Labels for the parameters
-labels_p = ['$k_{bind}$','$d_V^{WT}$','$k_{diss}$','$k_{fuse}$','$k_{uncoat}$','$d_{endosome}^{WT}$','$d_{gRNA}^{WT}$','$d_{V}^{dip}$','$d_{endosome}^{dip}$','$d_{gRNA}^{dip}$','$k_{transl}$','$d_{NSP}$','$k_{tr(-)}^{WT}$','$K_{NSP}$','$d_{gRNA(-)}^{WT}$','$k_{tr(+)}^{WT}$','$k_{complex}^{WT}$','$k_{tr(-)}^{dip}$','$d_{gRNA(-)}^{dip}$','$k_{tr(+)}^{dip}$','$k_{complex}^{dip}$','$K_{N}$','$d_{N}$','$d_{SP}$','$n_{SP}^{WT}$',	'$n_{SP}^{dip}$','$n_{N}^{dip}$','$K_{V_{rel}}^{WT}$','$k_{assembl}^{WT}$','$K_{V_{rel}}^{dip}$','$k_{assembl}^{dip}$','$d_{N-gRNA}^{WT}$','$k_{release}^{WT}$','$d_{assembled}^{WT}$','$d_{N-gRNA}^{dip}$','$k_{release}^{dip}$','$d_{assembled}^{dip}$','$k_{trans(-)}^{WT}$','$k_{trans(+)}^{WT}$','$k_{tr(-)}^{dip}$','$k_{tr(+)}^{dip}$']
+labels_p = ['$k_{bind}$','$d_V^{wt}$','$k_{diss}$','$k_{fuse}$','$k_{uncoat}$','$d_{endosome}^{wt}$','$d_{gRNA}^{wt}$','$d_{V}^{dip}$','$d_{endosome}^{dip}$','$d_{gRNA}^{dip}$','$k_{transl}$','$d_{NSP}$','$k_{tr(-)}^{wt}$','$K_{NSP}$','$d_{gRNA(-)}^{wt}$','$k_{tr(+)}^{wt}$','$k_{complex}^{wt}$','$k_{tr(-)}^{dip}$','$d_{gRNA(-)}^{dip}$','$k_{tr(+)}^{dip}$','$k_{complex}^{dip}$','$K_{N}$','$d_{N}$','$d_{SP}$','$n_{SP}^{wt}$',	'$n_{SP}^{dip}$','$n_{N}^{dip}$','$K_{V_{rel}}^{wt}$','$k_{assembl}^{wt}$','$K_{V_{rel}}^{dip}$','$k_{assembl}^{dip}$','$d_{N-gRNA}^{wt}$','$k_{release}^{wt}$','$d_{assembled}^{wt}$','$d_{N-gRNA}^{dip}$','$k_{release}^{dip}$','$d_{assembled}^{dip}$','$k_{trans(-)}^{wt}$','$k_{trans(+)}^{wt}$','$k_{trans(-)}^{dip}$','$k_{trans(+)}^{dip}$']
 
 _common_index=[0,2,3,4,10,11,13,21,22,23]
 _WT_index=[1,5,6,12,14,15,16,24,27,28,31,32,33]
@@ -155,15 +155,15 @@ _DIP_index=[7,8,9,17,18,19,20,25,26,29,30,34,35,36]
 figall, axes = plt.subplots(ncols=2, sharey=True, figsize=[8, 12],dpi=300)
 DIPp=axes[0].barh(np.arange(len(labels_p)),St[48,:],xerr=St_conf[48,:], label="Total order DIP", align='center', color='darkorange', zorder=10)
 axes[0].barh(np.arange(len(labels_p)),S1[48,:],xerr=S1_conf[48,:], label="First order DIP", align='center', color='mediumpurple', zorder=10)
-axes[0].set(title='$V_{released}^{dip}$')
+axes[0].set(title='$[V_{released}^{dip}]$')
 axes[0].set_xlabel("Sobol Index")
-axes[0].set_xlim(xmax=0.8)
+axes[0].set_xlim(xmax=1)
 
 axes[0].legend(ncol=3,loc='upper center', bbox_to_anchor=(0.5, -0.10),fancybox=True, shadow=True,prop={'size': 14})
 axes[1].barh(np.arange(len(labels_p)),StW[48,:], xerr=St_confW[48,:], label="Total order WT", align='center', color='royalblue', zorder=10)
 axes[1].barh(np.arange(len(labels_p)),S1W[48,:],xerr=S1_confW[48,:],label=("First order WT"), align='center', color='orangered', zorder=10)
-axes[1].set(title='$V_{released}^{WT}$')
-axes[1].set_xlim(xmax=0.8)
+axes[1].set(title='$[V_{released}^{wt}]$')
+axes[1].set_xlim(xmax=1)
 axes[1].set_xlabel("Sobol Index")
 
 axes[0].set(yticks=np.arange(len(labels_p)), yticklabels=labels_p)
@@ -174,7 +174,7 @@ axes[0].invert_xaxis()
 
 for ax in axes:
     ax.margins(0.03)
-    ax.grid(True)
+    ax.grid(False)
 
 figall.tight_layout()
 figall.subplots_adjust(wspace=0.4)
@@ -191,9 +191,9 @@ for label in axes[0].yaxis.get_majorticklabels():
     
 axes[0].legend(ncol=3,loc='upper center', bbox_to_anchor=(1.25, -0.05),fancybox=True, shadow=True,prop={'size': 14})
 axes[1].legend(ncol=3,loc='upper center', bbox_to_anchor=(-0.15, -0.10),fancybox=True, shadow=True,prop={'size': 14})
-sns.set(style="darkgrid")
-sns.set_color_codes("muted")
-figall.savefig('Sobol_all', bbox_inches='tight')
+# sns.set(style="darkgrid")
+# sns.set_color_codes("muted")
+figall.savefig('Sobol_all_Vreleased', bbox_inches='tight')
 
 
 # figs1, axes1 = plt.subplots(ncols=2, sharey=True, figsize=[8, 12],dpi=300)
